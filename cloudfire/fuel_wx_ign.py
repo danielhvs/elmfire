@@ -68,7 +68,7 @@ def round_time_to_nearest(t,base):
 
 timezone = pytz.timezone("UTC")
 
-valid_fuel_versions = ["1.0.5", "1.3.0", "1.4.0", "2.0.0_2019", "2.0.0_2020", "2.1.0", "2.2.0", "2.3.0", "2.4.0", "2.4.0_2.1.0_nbflip" ]
+valid_fuel_versions = ["1.0.5", "1.3.0", "1.4.0", "2.0.0_2019", "2.0.0_2020", "2.1.0", "2.2.0", "2.3.0", "2.4.0", "2.5.0", "2.5.0_2.4.0", "2.4.0_2.1.0_nbflip", '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024' ]
 valid_wx_types = ["forecast", "historical"]
 
 historical_wx_earliest = datetime.datetime(2011, 1, 30,  0, 0, tzinfo=datetime.timezone.utc)
@@ -155,11 +155,11 @@ north_buffer= 1000.0*args.north_buffer
 do_fuel = str2bool(args.do_fuel)
 if do_fuel:
     fuel_source = args.fuel_source
-    if fuel_source != 'landfire':
-        printerr("Error: For now, 'landfire' is the only valid --fuel_source")
+    if fuel_source != 'landfire' and fuel_source != 'planet':
+        printerr("Error: For now, 'landfire' and 'planet' are the only valid --fuel_source")
     fuel_version = args.fuel_version
     if any(item == fuel_version for item in valid_fuel_versions):
-        print('Using LANDFIRE ' + fuel_version)
+        print('Using ' + fuel_source + ' ' + fuel_version)
     else:
         msg='Error: set fuel_version to one of '
         for ver in valid_fuel_versions:
